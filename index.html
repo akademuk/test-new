@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELOCITY | Elite Car Rental & Detailing</title>
+    <meta name="description" content="Premium car rental and detailing services in Dubai and Miami.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Orbitron:wght@400;500;700;900&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Fancybox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                screens: {
+                    'sm': '640px',
+                    'md': '1100px',
+                    'lg': '1280px',
+                    'xl': '1536px',
+                },
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Orbitron', 'sans-serif'],
+                        numbers: ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        bg: 'var(--color-bg)',
+                        surface: 'var(--color-surface)',
+                        primary: 'var(--color-primary)',
+                        text: 'var(--color-text)',
+                        muted: 'var(--color-muted)',
+                    },
+                    backgroundImage: {
+                        'carbon': "radial-gradient(black 15%, transparent 16%), radial-gradient(black 15%, transparent 16%)",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            /* Default: Velocity Red */
+            --color-bg: #050505;
+            --color-surface: #121212;
+            --color-primary: #dc2626;
+            --color-text: #f3f4f6;
+            --color-muted: #9ca3af;
+        }
+
+        [data-theme="midnight"] {
+            --color-bg: #020617;
+            --color-surface: #0f172a;
+            --color-primary: #3b82f6; /* Blue */
+        }
+
+        [data-theme="gold"] {
+            --color-bg: #0c0a00;
+            --color-surface: #1a1910;
+            --color-primary: #eab308; /* Gold */
+        }
+
+        [data-theme="toxic"] {
+            --color-bg: #0a0a0a;
+            --color-surface: #171717;
+            --color-primary: #84cc16; /* Lime */
+        }
+
+        [data-theme="miami"] {
+            --color-bg: #0f0518;
+            --color-surface: #201030;
+            --color-primary: #d946ef; /* Magenta */
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* Carbon Fiber Texture */
+        .bg-carbon {
+            background-color: #111;
+            background-image: 
+                linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black),
+                linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--color-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--color-primary); }
+
+        /* Text Stroke */
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+            color: transparent;
+        }
+        .text-stroke-primary {
+            -webkit-text-stroke: 1px var(--color-primary);
+            color: transparent;
+        }
+
+        /* Glitch Effect */
+        .glitch-hover:hover {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: var(--color-primary);
+        }
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+
+        /* Lenis */
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+
+        /* Slider Transitions */
+        .swiper-slide-active .car-image {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .car-image {
+            transform: scale(0.8);
+            opacity: 0.5;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .bg-transition {
+            transition: background-image 0.8s ease-in-out;
+        }
+
+        /* Glassmorphism for Theme Switcher */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Developer Badge */
+        .developer-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: inherit;
+            text-decoration: none;
+            opacity: 0.8;
+        }
+        .developer-badge:hover {
+            border-color: var(--color-primary);
+            opacity: 1;
+            transform: translateY(-1px);
+        }
+        .developer-badge__dot {
+            width: 6px;
+            height: 6px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .developer-badge__dot::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: 50%;
+            animation: badgePulse 2s infinite;
+        }
+        @keyframes badgePulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary selection:text-white">
+
+    <!-- THEME SWITCHER -->
+    <div class="fixed bottom-8 right-8 z-50 flex flex-col items-end gap-4">
+        <div id="theme-menu" class="glass-panel p-4 rounded-xl flex flex-col gap-3 opacity-0 translate-y-4 pointer-events-none transition-all duration-300 origin-bottom-right">
+            <button onclick="setTheme('default')" class="flex items-center gap-3 group w-full">
+                <div class="w-6 h-6 rounded-full bg-red-600 border border-white/20"></div>
+                <span class="text-xs font-display uppercase group-hover:text-red-600 transition-colors">Velocity Red</span>
+            </button>
+            <button onclick="setTheme('midnight')" class="flex items-center gap-3 group w-full">
+                <div class="w-6 h-6 rounded-full bg-blue-600 border border-white/20"></div>
+                <span class="text-xs font-display uppercase group-hover:text-blue-600 transition-colors">Midnight</span>
+            </button>
+            <button onclick="setTheme('gold')" class="flex items-center gap-3 group w-full">
+                <div class="w-6 h-6 rounded-full bg-yellow-500 border border-white/20"></div>
+                <span class="text-xs font-display uppercase group-hover:text-yellow-500 transition-colors">Dubai Gold</span>
+            </button>
+            <button onclick="setTheme('toxic')" class="flex items-center gap-3 group w-full">
+                <div class="w-6 h-6 rounded-full bg-lime-500 border border-white/20"></div>
+                <span class="text-xs font-display uppercase group-hover:text-lime-500 transition-colors">Toxic</span>
+            </button>
+            <button onclick="setTheme('miami')" class="flex items-center gap-3 group w-full">
+                <div class="w-6 h-6 rounded-full bg-fuchsia-500 border border-white/20"></div>
+                <span class="text-xs font-display uppercase group-hover:text-fuchsia-500 transition-colors">Miami</span>
+            </button>
+        </div>
+        <button onclick="toggleThemeMenu()" class="w-14 h-14 rounded-full bg-primary text-white shadow-[0_0_20px_var(--color-primary)] flex items-center justify-center hover:scale-110 transition-transform">
+            <i class="fas fa-palette text-xl"></i>
+        </button>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="fixed top-0 w-full z-40 border-b border-white/10 bg-bg/80 backdrop-blur-md transition-colors duration-500">
+        <div class="container mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-2 group">
+                <i class="fas fa-tachometer-alt text-primary text-2xl group-hover:rotate-180 transition-transform duration-500"></i>
+                <span class="font-display font-bold text-2xl tracking-widest italic">VELOCITY</span>
+            </a>
+            
+            <div class="hidden lg:flex items-center gap-8 font-display font-medium uppercase tracking-wide text-sm">
+                <a href="#fleet" class="hover:text-primary transition-colors">Fleet</a>
+                <a href="#services" class="hover:text-primary transition-colors">Services</a>
+                <a href="#membership" class="hover:text-primary transition-colors">Membership</a>
+                <a href="#locations" class="hover:text-primary transition-colors">Locations</a>
+            </div>
+
+            <button class="px-6 py-2 border border-primary text-primary font-display font-bold uppercase tracking-wider hover:bg-primary hover:text-white transition-all skew-x-[-10deg]">
+                <span class="block skew-x-[10deg]">Book Now</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 1. HERO SECTION -->
+    <section class="relative h-screen flex items-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-r from-bg via-bg/70 to-transparent z-10 transition-colors duration-500"></div>
+            <img data-tk="hero_photo" src="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=2831&auto=format&fit=crop" class="w-full h-full object-cover opacity-60" alt="Supercar">
+        </div>
+
+        <div class="container mx-auto px-6 relative z-20 pt-20">
+            <div class="max-w-4xl">
+                <div class="flex items-center gap-4 mb-6 gs-reveal">
+                    <div class="h-[1px] w-12 bg-primary"></div>
+                    <span data-tk="hero_subtitle" class="text-primary font-display uppercase tracking-[0.3em] text-sm">Dubai • Miami • London</span>
+                </div>
+                
+                <h1 class="font-display text-6xl md:text-9xl font-black uppercase leading-none mb-8 gs-reveal">
+                    Drive <br>
+                    <span class="text-stroke">The</span> <span class="text-primary glitch-hover cursor-pointer">Limit</span>
+                </h1>
+                
+                <p data-tk="hero_desc" class="text-muted text-lg md:text-xl max-w-xl mb-10 leading-relaxed gs-reveal">
+                    Experience the world's most exclusive fleet. From hypercars to armored SUVs, we deliver pure adrenaline to your doorstep.
+                </p>
+                
+                <div class="flex flex-wrap gap-6 gs-reveal">
+                    <button class="px-8 py-4 bg-primary text-white font-display font-bold uppercase tracking-widest hover:brightness-110 transition-all skew-x-[-10deg]">
+                        <span class="block skew-x-[10deg]">View Fleet</span>
+                    </button>
+                    <button class="px-8 py-4 border border-white/20 text-white font-display font-bold uppercase tracking-widest hover:border-primary hover:text-primary transition-all skew-x-[-10deg]">
+                        <span class="block skew-x-[10deg]">Detailing Services</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- 2. BRANDS MARQUEE -->
+    <section class="py-10 border-y border-white/5 bg-surface/50 overflow-hidden">
+        <div class="flex gap-16 items-center animate-marquee whitespace-nowrap opacity-40 grayscale hover:grayscale-0 transition-all duration-500">
+            <span class="text-3xl font-display font-bold mx-8">LAMBORGHINI</span>
+            <span class="text-3xl font-display font-bold mx-8">FERRARI</span>
+            <span class="text-3xl font-display font-bold mx-8">PORSCHE</span>
+            <span class="text-3xl font-display font-bold mx-8">MCLAREN</span>
+            <span class="text-3xl font-display font-bold mx-8">BUGATTI</span>
+            <span class="text-3xl font-display font-bold mx-8">ROLLS ROYCE</span>
+            <span class="text-3xl font-display font-bold mx-8">ASTON MARTIN</span>
+            <!-- Duplicate -->
+            <span class="text-3xl font-display font-bold mx-8">LAMBORGHINI</span>
+            <span class="text-3xl font-display font-bold mx-8">FERRARI</span>
+            <span class="text-3xl font-display font-bold mx-8">PORSCHE</span>
+            <span class="text-3xl font-display font-bold mx-8">MCLAREN</span>
+            <span class="text-3xl font-display font-bold mx-8">BUGATTI</span>
+        </div>
+    </section>
+
+    <!-- 3. THE FLEET (Expanded) -->
+    <section id="fleet" class="relative py-32 bg-bg overflow-hidden transition-colors duration-500">
+        <div id="fleet-bg" class="absolute inset-0 opacity-30 bg-cover bg-center transition-all duration-700 ease-in-out" style="background-image: url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2800&auto=format&fit=crop');"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-bg via-transparent to-bg transition-colors duration-500"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <h2 class="font-display text-4xl md:text-6xl font-bold uppercase mb-2">Our <span class="text-primary">Fleet</span></h2>
+                    <p data-tk="fleet_subtitle" class="text-muted">Select your weapon of choice.</p>
+                </div>
+                <div class="flex gap-4">
+                    <button class="fleet-prev w-12 h-12 border border-white/20 flex items-center justify-center hover:bg-primary hover:border-primary transition-colors"><i class="fas fa-chevron-left"></i></button>
+                    <button class="fleet-next w-12 h-12 border border-white/20 flex items-center justify-center hover:bg-primary hover:border-primary transition-colors"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div class="swiper fleet-slider overflow-visible">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1: Lamborghini -->
+                    <div class="swiper-slide" data-bg="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=2800&auto=format&fit=crop">
+                        <div class="relative group">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-primary to-purple-600 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                            <div class="relative bg-surface border border-white/10 p-2 rounded-lg overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=1000&auto=format&fit=crop" class="w-full h-64 md:h-96 object-cover rounded car-image" alt="Lamborghini">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90"></div>
+                                <div class="absolute bottom-6 left-6 z-10">
+                                    <h3 class="font-display text-xl md:text-2xl lg:text-3xl font-bold uppercase italic">Lamborghini <span class="text-primary">Huracan</span></h3>
+                                    <div class="flex gap-4 mt-2 text-xs md:text-sm text-gray-200 font-display">
+                                        <span><i class="fas fa-tachometer-alt text-primary"></i> 2.9s</span>
+                                        <span><i class="fas fa-horse text-primary"></i> 631 HP</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 2: Ferrari -->
+                    <div class="swiper-slide" data-bg="https://images.unsplash.com/photo-1592198084033-aade902d1aae?q=80&w=2800&auto=format&fit=crop">
+                        <div class="relative group">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-primary to-orange-600 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                            <div class="relative bg-surface border border-white/10 p-2 rounded-lg overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1592198084033-aade902d1aae?q=80&w=1000&auto=format&fit=crop" class="w-full h-64 md:h-96 object-cover rounded car-image" alt="Ferrari">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90"></div>
+                                <div class="absolute bottom-6 left-6 z-10">
+                                    <h3 class="font-display text-xl md:text-2xl lg:text-3xl font-bold uppercase italic">Ferrari <span class="text-primary">SF90</span></h3>
+                                    <div class="flex gap-4 mt-2 text-xs md:text-sm text-gray-200 font-display">
+                                        <span><i class="fas fa-tachometer-alt text-primary"></i> 2.5s</span>
+                                        <span><i class="fas fa-horse text-primary"></i> 986 HP</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 3: Porsche -->
+                    <div class="swiper-slide" data-bg="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=2800&auto=format&fit=crop">
+                        <div class="relative group">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-primary to-blue-600 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                            <div class="relative bg-surface border border-white/10 p-2 rounded-lg overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=1000&auto=format&fit=crop" class="w-full h-64 md:h-96 object-cover rounded car-image" alt="Porsche">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90"></div>
+                                <div class="absolute bottom-6 left-6 z-10">
+                                    <h3 class="font-display text-xl md:text-2xl lg:text-3xl font-bold uppercase italic">Porsche <span class="text-primary">911 GT3</span></h3>
+                                    <div class="flex gap-4 mt-2 text-xs md:text-sm text-gray-200 font-display">
+                                        <span><i class="fas fa-tachometer-alt text-primary"></i> 3.2s</span>
+                                        <span><i class="fas fa-horse text-primary"></i> 502 HP</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 4: McLaren -->
+                    <div class="swiper-slide" data-bg="https://images.unsplash.com/photo-1621135802920-133df287f89c?q=80&w=2800&auto=format&fit=crop">
+                        <div class="relative group">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-primary to-orange-500 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                            <div class="relative bg-surface border border-white/10 p-2 rounded-lg overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1621135802920-133df287f89c?q=80&w=1000&auto=format&fit=crop" class="w-full h-64 md:h-96 object-cover rounded car-image" alt="McLaren">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90"></div>
+                                <div class="absolute bottom-6 left-6 z-10">
+                                    <h3 class="font-display text-xl md:text-2xl lg:text-3xl font-bold uppercase italic">McLaren <span class="text-primary">720S</span></h3>
+                                    <div class="flex gap-4 mt-2 text-xs md:text-sm text-gray-200 font-display">
+                                        <span><i class="fas fa-tachometer-alt text-primary"></i> 2.8s</span>
+                                        <span><i class="fas fa-horse text-primary"></i> 710 HP</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 5: Rolls Royce -->
+                    <div class="swiper-slide" data-bg="https://images.unsplash.com/photo-1633596683562-4a47eb4983c5?q=80&w=2800&auto=format&fit=crop">
+                        <div class="relative group">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-primary to-gray-400 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                            <div class="relative bg-surface border border-white/10 p-2 rounded-lg overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1633596683562-4a47eb4983c5?q=80&w=1000&auto=format&fit=crop" class="w-full h-64 md:h-96 object-cover rounded car-image" alt="Rolls Royce">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90"></div>
+                                <div class="absolute bottom-6 left-6 z-10">
+                                    <h3 class="font-display text-xl md:text-2xl lg:text-3xl font-bold uppercase italic">Rolls Royce <span class="text-primary">Cullinan</span></h3>
+                                    <div class="flex gap-4 mt-2 text-xs md:text-sm text-gray-200 font-display">
+                                        <span><i class="fas fa-tachometer-alt text-primary"></i> 4.5s</span>
+                                        <span><i class="fas fa-horse text-primary"></i> 563 HP</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 6: G-Wagon -->
+                    <div class="swiper-slide" data-bg="https://images.unsplash.com/photo-1609521263047-f8f205293f24?q=80&w=2800&auto=format&fit=crop">
+                        <div class="relative group">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-primary to-green-800 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                            <div class="relative bg-surface border border-white/10 p-2 rounded-lg overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1609521263047-f8f205293f24?q=80&w=1000&auto=format&fit=crop" class="w-full h-64 md:h-96 object-cover rounded car-image" alt="G-Wagon">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90"></div>
+                                <div class="absolute bottom-6 left-6 z-10">
+                                    <h3 class="font-display text-xl md:text-2xl lg:text-3xl font-bold uppercase italic">Mercedes <span class="text-primary">G63 AMG</span></h3>
+                                    <div class="flex gap-4 mt-2 text-xs md:text-sm text-gray-200 font-display">
+                                        <span><i class="fas fa-tachometer-alt text-primary"></i> 4.5s</span>
+                                        <span><i class="fas fa-horse text-primary"></i> 577 HP</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. HOW IT WORKS -->
+    <section class="py-20 bg-surface/30">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                <div class="gs-reveal">
+                    <div class="text-6xl font-display font-black text-white/5 mb-4">01</div>
+                    <h3 data-tk="step_1_title" class="text-xl font-bold uppercase mb-2">Select Vehicle</h3>
+                    <p data-tk="step_1_desc" class="text-muted text-sm">Browse our global fleet and choose your machine.</p>
+                </div>
+                <div class="gs-reveal">
+                    <div class="text-6xl font-display font-black text-white/5 mb-4">02</div>
+                    <h3 data-tk="step_2_title" class="text-xl font-bold uppercase mb-2">Verification</h3>
+                    <p data-tk="step_2_desc" class="text-muted text-sm">Instant ID and license check via our secure portal.</p>
+                </div>
+                <div class="gs-reveal">
+                    <div class="text-6xl font-display font-black text-white/5 mb-4">03</div>
+                    <h3 data-tk="step_3_title" class="text-xl font-bold uppercase mb-2">Delivery</h3>
+                    <p data-tk="step_3_desc" class="text-muted text-sm">We drop the car off at your hotel, airport, or villa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SERVICES (Carbon Style) -->
+    <section id="services" class="py-32 bg-carbon relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <span data-tk="services_subtitle" class="text-primary font-display uppercase tracking-wider md:tracking-widest text-xs md:text-sm mb-4 block">Perfection in Detail</span>
+                <h2 class="font-display text-3xl md:text-5xl lg:text-6xl font-bold uppercase">Elite <span class="text-stroke-primary">Services</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-surface border border-white/5 p-8 hover:border-primary/50 transition-colors group gs-reveal-stagger">
+                    <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center text-primary text-2xl mb-8 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-spray-can"></i>
+                    </div>
+                    <h3 data-tk="service_1_name" class="font-display text-xl md:text-xl lg:text-2xl font-bold uppercase mb-4">Ceramic Coating</h3>
+                    <p data-tk="service_1_desc" class="text-muted text-sm leading-relaxed mb-6">
+                        Nano-ceramic protection that bonds with your paint, creating a hydrophobic layer that lasts for years.
+                    </p>
+                    <a href="#" class="text-primary uppercase text-xs font-bold tracking-widest hover:text-white transition-colors">Learn More &rarr;</a>
+                </div>
+                <!-- Service 2 -->
+                <div class="bg-surface border border-white/5 p-8 hover:border-primary/50 transition-colors group gs-reveal-stagger">
+                    <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center text-primary text-2xl mb-8 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 data-tk="service_2_name" class="font-display text-xl md:text-xl lg:text-2xl font-bold uppercase mb-4">PPF Protection</h3>
+                    <p data-tk="service_2_desc" class="text-muted text-sm leading-relaxed mb-6">
+                        Self-healing Paint Protection Film to shield your investment from rock chips, scratches, and road debris.
+                    </p>
+                    <a href="#" class="text-primary uppercase text-xs font-bold tracking-widest hover:text-white transition-colors">Learn More &rarr;</a>
+                </div>
+                <!-- Service 3 -->
+                <div class="bg-surface border border-white/5 p-8 hover:border-primary/50 transition-colors group gs-reveal-stagger">
+                    <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center text-primary text-2xl mb-8 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 data-tk="service_3_name" class="font-display text-xl md:text-xl lg:text-2xl font-bold uppercase mb-4">Performance Tuning</h3>
+                    <p data-tk="service_3_desc" class="text-muted text-sm leading-relaxed mb-6">
+                        ECU remapping and exhaust upgrades to unlock the full potential of your engine.
+                    </p>
+                    <a href="#" class="text-primary uppercase text-xs font-bold tracking-widest hover:text-white transition-colors">Learn More &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. VIDEO SHOWCASE -->
+    <section class="py-32 bg-bg relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=2940&auto=format&fit=crop" class="w-full h-full object-cover" alt="Background">
+        </div>
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h2 class="font-display text-4xl md:text-6xl font-bold uppercase mb-12 gs-reveal">Adrenaline <span class="text-primary">Unleashed</span></h2>
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" data-fancybox class="relative aspect-video max-w-5xl mx-auto border border-white/10 rounded-xl overflow-hidden shadow-2xl group cursor-pointer gs-reveal block">
+                <img data-tk="video_thumbnail" src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Video Thumbnail">
+                <div class="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/20 transition-colors">
+                    <div class="w-20 h-20 rounded-full bg-primary/90 flex items-center justify-center pl-1 text-white text-2xl shadow-[0_0_30px_var(--color-primary)] group-hover:scale-110 transition-transform">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- 7. MEMBERSHIP -->
+    <section id="membership" class="py-32 bg-surface">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="font-display text-3xl md:text-5xl lg:text-6xl font-bold uppercase mb-6">Membership <span class="text-stroke-primary">Tiers</span></h2>
+                <p data-tk="membership_desc" class="text-muted max-w-2xl mx-auto">Unlock exclusive access, priority booking, and reduced rates with our membership cards.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Silver -->
+                <div class="bg-bg border border-white/10 p-8 rounded-xl hover:border-gray-400 transition-colors relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gray-500/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
+                    <h3 class="font-display text-xl md:text-xl lg:text-2xl font-bold text-gray-300 mb-2">Silver</h3>
+                    <div class="text-2xl md:text-2xl lg:text-3xl font-bold mb-6">$5,000 <span class="text-sm font-normal text-muted">/yr</span></div>
+                    <ul class="space-y-4 text-sm text-muted mb-8">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-gray-300"></i> 10% Rental Discount</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-gray-300"></i> Priority Booking</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-gray-300"></i> 2 Free Details</li>
+                    </ul>
+                    <button class="w-full py-3 border border-gray-500 text-gray-300 font-bold uppercase tracking-wider hover:bg-gray-500 hover:text-black transition-colors">Join Silver</button>
+                </div>
+                <!-- Gold -->
+                <div class="bg-bg border border-yellow-500/30 p-8 rounded-xl hover:border-yellow-500 transition-colors relative overflow-hidden group transform md:-translate-y-4">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-500/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
+                    <div class="absolute top-4 right-4 text-yellow-500"><i class="fas fa-crown"></i></div>
+                    <h3 class="font-display text-xl md:text-xl lg:text-2xl font-bold text-yellow-500 mb-2">Gold</h3>
+                    <div class="text-2xl md:text-2xl lg:text-3xl font-bold mb-6">$15,000 <span class="text-sm font-normal text-muted">/yr</span></div>
+                    <ul class="space-y-4 text-sm text-muted mb-8">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-yellow-500"></i> 20% Rental Discount</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-yellow-500"></i> Concierge 24/7</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-yellow-500"></i> 5 Free Details</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-yellow-500"></i> Airport Pickup</li>
+                    </ul>
+                    <button class="w-full py-3 bg-yellow-500 text-black font-bold uppercase tracking-wider hover:bg-yellow-400 transition-colors">Join Gold</button>
+                </div>
+                <!-- Platinum -->
+                <div class="bg-bg border border-white/10 p-8 rounded-xl hover:border-primary transition-colors relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
+                    <h3 class="font-display text-xl md:text-xl lg:text-2xl font-bold text-primary mb-2">Platinum</h3>
+                    <div class="text-2xl md:text-2xl lg:text-3xl font-bold mb-6">$50,000 <span class="text-sm font-normal text-muted">/yr</span></div>
+                    <ul class="space-y-4 text-sm text-muted mb-8">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-primary"></i> 35% Rental Discount</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-primary"></i> First Access to New Cars</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-primary"></i> Unlimited Detailing</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-primary"></i> Private Track Days</li>
+                    </ul>
+                    <button class="w-full py-3 border border-primary text-primary font-bold uppercase tracking-wider hover:bg-primary hover:text-white transition-colors">Join Platinum</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. STATS (Parallax) -->
+    <section class="py-32 relative bg-fixed bg-center bg-cover" style="background-image: url('https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2940&auto=format&fit=crop');">
+        <div class="absolute inset-0 bg-black/80"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+                <div>
+                    <div class="font-numbers text-5xl md:text-7xl font-bold text-white mb-2"><span class="counter" data-target="50">0</span>+</div>
+                    <div class="text-primary uppercase tracking-widest text-xs">Exotic Cars</div>
+                </div>
+                <div>
+                    <div class="font-numbers text-5xl md:text-7xl font-bold text-white mb-2"><span class="counter" data-target="24">0</span>/7</div>
+                    <div class="text-primary uppercase tracking-widest text-xs">Concierge</div>
+                </div>
+                <div>
+                    <div class="font-numbers text-5xl md:text-7xl font-bold text-white mb-2"><span class="counter" data-target="100">0</span>%</div>
+                    <div class="text-primary uppercase tracking-widest text-xs">Satisfaction</div>
+                </div>
+                <div>
+                    <div class="font-numbers text-5xl md:text-7xl font-bold text-white mb-2"><span class="counter" data-target="3">0</span></div>
+                    <div class="text-primary uppercase tracking-widest text-xs">Global Hubs</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. TESTIMONIALS -->
+    <section class="py-20 bg-bg">
+        <div class="container mx-auto px-6">
+            <h2 class="font-display text-4xl font-bold uppercase mb-12 text-center">Client <span class="text-primary">Stories</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-surface p-8 border-l-4 border-primary sticky top-24 md:static">
+                    <p data-tk="testimonial_1_text" class="text-lg italic text-gray-300 mb-6">"Velocity saved my trip to Dubai. The Huracan was in pristine condition and delivered right to my hotel lobby."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-12 h-12 rounded-full grayscale" alt="User">
+                        <div>
+                            <div data-tk="testimonial_1_name" class="font-bold font-display uppercase">James Hunt</div>
+                            <div data-tk="testimonial_1_role" class="text-xs text-muted">Entrepreneur</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-surface p-8 border-l-4 border-primary sticky top-24 md:static">
+                    <p data-tk="testimonial_2_text" class="text-lg italic text-gray-300 mb-6">"The detailing team is magic. My G-Wagon looks better than the day I bought it. Highly recommended."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-12 h-12 rounded-full grayscale" alt="User">
+                        <div>
+                            <div data-tk="testimonial_2_name" class="font-bold font-display uppercase">Sarah Connor</div>
+                            <div data-tk="testimonial_2_role" class="text-xs text-muted">Real Estate Investor</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- New Testimonial 3 -->
+                <div class="bg-surface p-8 border-l-4 border-primary sticky top-24 md:static">
+                    <p data-tk="testimonial_3_text" class="text-lg italic text-gray-300 mb-6">"The Platinum membership is worth every penny. Priority access to the new McLaren 720S made my weekend unforgettable."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" class="w-12 h-12 rounded-full grayscale" alt="User">
+                        <div>
+                            <div data-tk="testimonial_3_name" class="font-bold font-display uppercase">Michael Chang</div>
+                            <div data-tk="testimonial_3_role" class="text-xs text-muted">Tech CEO</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- New Testimonial 4 -->
+                <div class="bg-surface p-8 border-l-4 border-primary sticky top-24 md:static">
+                    <p data-tk="testimonial_4_text" class="text-lg italic text-gray-300 mb-6">"Impeccable service. The car was spotless, and the concierge handled all my luggage. True luxury experience."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-12 h-12 rounded-full grayscale" alt="User">
+                        <div>
+                            <div data-tk="testimonial_4_name" class="font-bold font-display uppercase">Elena Rodriguez</div>
+                            <div data-tk="testimonial_4_role" class="text-xs text-muted">Fashion Designer</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- New Testimonial 5 -->
+                <div class="bg-surface p-8 border-l-4 border-primary sticky top-24 md:static">
+                    <p data-tk="testimonial_5_text" class="text-lg italic text-gray-300 mb-6">"I've rented from agencies all over Europe, but Velocity's fleet quality is unmatched. The Rolls Royce Cullinan was a dream."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://randomuser.me/api/portraits/men/22.jpg" class="w-12 h-12 rounded-full grayscale" alt="User">
+                        <div>
+                            <div data-tk="testimonial_5_name" class="font-bold font-display uppercase">David Sterling</div>
+                            <div data-tk="testimonial_5_role" class="text-xs text-muted">Investment Banker</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- New Testimonial 6 -->
+                <div class="bg-surface p-8 border-l-4 border-primary sticky top-24 md:static">
+                    <p data-tk="testimonial_6_text" class="text-lg italic text-gray-300 mb-6">"Fast, professional, and discreet. The booking process was seamless, and the car was delivered exactly on time."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://randomuser.me/api/portraits/women/29.jpg" class="w-12 h-12 rounded-full grayscale" alt="User">
+                        <div>
+                            <div data-tk="testimonial_6_name" class="font-bold font-display uppercase">Sophie Laurent</div>
+                            <div data-tk="testimonial_6_role" class="text-xs text-muted">Art Director</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. GALLERY (Grid) -->
+    <section class="py-20 bg-surface/50">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-end mb-8">
+                <h2 class="font-display text-3xl font-bold uppercase">Instagram <span class="text-muted">@Velocity</span></h2>
+                <a href="#" class="text-primary text-sm uppercase tracking-widest hover:text-white transition-colors">Follow Us</a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Image 1 -->
+                <a href="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=1200&auto=format&fit=crop" data-fancybox="gallery" class="aspect-square overflow-hidden group block relative">
+                    <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 grayscale group-hover:grayscale-0" alt="Gallery">
+                    <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </a>
+                <!-- Image 2 -->
+                <a href="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1200&auto=format&fit=crop" data-fancybox="gallery" class="aspect-square overflow-hidden group block relative">
+                    <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 grayscale group-hover:grayscale-0" alt="Gallery">
+                    <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </a>
+                <!-- Image 3 -->
+                <a href="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=1200&auto=format&fit=crop" data-fancybox="gallery" class="aspect-square overflow-hidden group block relative">
+                    <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 grayscale group-hover:grayscale-0" alt="Gallery">
+                    <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </a>
+                <!-- Image 4 -->
+                <a href="https://images.unsplash.com/photo-1566008885218-90abf9200ddb?q=80&w=1200&auto=format&fit=crop" data-fancybox="gallery" class="aspect-square overflow-hidden group block relative">
+                    <img src="https://images.unsplash.com/photo-1566008885218-90abf9200ddb?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 grayscale group-hover:grayscale-0" alt="Gallery">
+                    <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </a>
+                <!-- Image 5 -->
+                <a href="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=1200&auto=format&fit=crop" data-fancybox="gallery" class="aspect-square overflow-hidden group block relative">
+                    <img src="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 grayscale group-hover:grayscale-0" alt="Gallery">
+                    <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </a>
+                <!-- Image 6 -->
+                <a href="https://images.unsplash.com/photo-1600712242805-5f78671b24da?q=80&w=1200&auto=format&fit=crop" data-fancybox="gallery" class="aspect-square overflow-hidden group block relative">
+                    <img src="https://images.unsplash.com/photo-1600712242805-5f78671b24da?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 grayscale group-hover:grayscale-0" alt="Gallery">
+                    <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </a>
+                <!-- Image 7 -->
+                <a href="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=1200&auto=format&fit=crop" data-fancybox="gallery" class="aspect-square overflow-hidden group block relative">
+                    <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 grayscale group-hover:grayscale-0" alt="Gallery">
+                    <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </a>
+                <!-- Image 8 -->
+                <a href="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1200&auto=format&fit=crop" data-fancybox="gallery" class="aspect-square overflow-hidden group block relative">
+                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 grayscale group-hover:grayscale-0" alt="Gallery">
+                    <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. LOCATIONS -->
+    <section id="locations" class="py-32 bg-bg">
+        <div class="container mx-auto px-6">
+            <h2 class="font-display text-4xl font-bold uppercase mb-12 text-center">Global <span class="text-primary">Hubs</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="relative h-80 group overflow-hidden rounded-xl">
+                    <img data-tk="location_1_photo" src="https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Dubai">
+                    <div class="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                        <h3 data-tk="location_1_name" class="font-display text-3xl font-bold uppercase tracking-widest">Dubai</h3>
+                    </div>
+                </div>
+                <div class="relative h-80 group overflow-hidden rounded-xl">
+                    <img data-tk="location_2_photo" src="https://images.unsplash.com/photo-1535498730771-e735b998cd64?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Miami">
+                    <div class="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                        <h3 data-tk="location_2_name" class="font-display text-3xl font-bold uppercase tracking-widest">Miami</h3>
+                    </div>
+                </div>
+                <div class="relative h-80 group overflow-hidden rounded-xl">
+                    <img data-tk="location_3_photo" src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="London">
+                    <div class="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                        <h3 data-tk="location_3_name" class="font-display text-3xl font-bold uppercase tracking-widest">London</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. FAQ -->
+    <section class="py-20 bg-surface/30">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h2 class="font-display text-3xl font-bold uppercase mb-8 text-center">FAQ</h2>
+            <div class="space-y-4">
+                <div class="border border-white/10 bg-surface p-6 rounded cursor-pointer hover:border-primary/50 transition-colors">
+                    <h4 data-tk="faq_1_question" class="font-bold uppercase mb-2 text-sm">What documents do I need?</h4>
+                    <p data-tk="faq_1_answer" class="text-muted text-sm">Valid driver's license, passport, and a credit card for the security deposit.</p>
+                </div>
+                <div class="border border-white/10 bg-surface p-6 rounded cursor-pointer hover:border-primary/50 transition-colors">
+                    <h4 data-tk="faq_2_question" class="font-bold uppercase mb-2 text-sm">Is insurance included?</h4>
+                    <p data-tk="faq_2_answer" class="text-muted text-sm">Yes, all rentals come with comprehensive insurance. Additional coverage is available.</p>
+                </div>
+                <div class="border border-white/10 bg-surface p-6 rounded cursor-pointer hover:border-primary/50 transition-colors">
+                    <h4 data-tk="faq_3_question" class="font-bold uppercase mb-2 text-sm">Do you deliver?</h4>
+                    <p data-tk="faq_3_answer" class="text-muted text-sm">We offer complimentary delivery to hotels and airports within city limits.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. CONTACT -->
+    <section class="py-32 bg-bg">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-16">
+                <div class="w-full lg:w-1/2">
+                    <h2 class="font-display text-4xl md:text-6xl font-bold uppercase mb-8">Ready to <br> <span class="text-primary">Dominate?</span></h2>
+                    <p data-tk="contact_desc" class="text-muted mb-12">
+                        Fill out the form below to request a booking or detailing consultation. Our team will contact you within 15 minutes.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-surface border border-white/10 flex items-center justify-center text-primary">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <div data-tk="contact_address_label" class="font-display font-bold uppercase">Dubai HQ</div>
+                                <div data-tk="contact_address" class="text-sm text-muted">Downtown Boulevard, Dubai, UAE</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-surface border border-white/10 flex items-center justify-center text-primary">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <div class="font-display font-bold uppercase">Call Us</div>
+                                <div data-tk="contact_phone" class="text-sm text-muted">+971 50 123 4567</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-full lg:w-1/2">
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-2 gap-6">
+                            <input type="text" placeholder="Name" class="w-full bg-surface border border-white/10 p-4 text-white focus:border-primary focus:outline-none transition-colors">
+                            <input type="text" placeholder="Phone" class="w-full bg-surface border border-white/10 p-4 text-white focus:border-primary focus:outline-none transition-colors">
+                        </div>
+                        <input type="email" placeholder="Email" class="w-full bg-surface border border-white/10 p-4 text-white focus:border-primary focus:outline-none transition-colors">
+                        <select class="w-full bg-surface border border-white/10 p-4 text-muted focus:border-primary focus:outline-none transition-colors">
+                            <option>Select Service</option>
+                            <option>Car Rental</option>
+                            <option>Detailing</option>
+                            <option>Tuning</option>
+                        </select>
+                        <textarea rows="4" placeholder="Message" class="w-full bg-surface border border-white/10 p-4 text-white focus:border-primary focus:outline-none transition-colors"></textarea>
+                        <button class="w-full py-4 bg-primary text-white font-display font-bold uppercase tracking-widest hover:brightness-110 transition-all">
+                            Submit Request
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-12 border-t border-white/10 bg-surface">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-tachometer-alt text-primary text-xl"></i>
+                <span class="font-display font-bold text-xl tracking-widest italic">VELOCITY</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+                <div data-tk="footer_copyright" class="text-muted text-sm">
+                    &copy; 2026 Velocity Automotive. All rights reserved.
+                </div>
+                <a href="https://timekairos.com.ua/" class="developer-badge" target="_blank" rel="noopener noreferrer">
+                    <span class="developer-badge__dot"></span>
+                    Developed by TimeKairos
+                </a>
+            </div>
+            <div class="flex gap-6">
+                <a data-tk="instagram" href="#" class="text-muted hover:text-primary transition-colors"><i class="fab fa-instagram text-xl"></i></a>
+                <a data-tk="youtube" href="#" class="text-muted hover:text-primary transition-colors"><i class="fab fa-youtube text-xl"></i></a>
+                <a data-tk="tiktok" href="#" class="text-muted hover:text-primary transition-colors"><i class="fab fa-tiktok text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
+    <script>
+        // 0. FANCYBOX
+        Fancybox.bind("[data-fancybox]", {
+            // Your custom options
+        });
+
+        // 1. THEME SWITCHER
+        function setTheme(themeName) {
+            if (themeName === 'default') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', themeName);
+            }
+        }
+
+        function toggleThemeMenu() {
+            const menu = document.getElementById('theme-menu');
+            if (menu.classList.contains('opacity-0')) {
+                menu.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+            } else {
+                menu.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+            }
+        }
+
+        // 2. LENIS SMOOTH SCROLL
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true,
+        });
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // 3. GSAP REVEALS
+        gsap.registerPlugin(ScrollTrigger);
+        
+        gsap.utils.toArray('.gs-reveal').forEach(elem => {
+            gsap.fromTo(elem, 
+                { y: 50, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 85%"
+                    }
+                }
+            );
+        });
+
+        gsap.utils.toArray('.gs-reveal-stagger').forEach((elem, i) => {
+            gsap.fromTo(elem, 
+                { y: 50, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    delay: i * 0.1,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 85%"
+                    }
+                }
+            );
+        });
+
+        // 4. FLEET SLIDER WITH DYNAMIC BACKGROUND
+        const fleetBg = document.getElementById('fleet-bg');
+        
+        const swiper = new Swiper('.fleet-slider', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            centeredSlides: true,
+            loop: true,
+            speed: 800,
+            mousewheel: true,
+            grabCursor: true,
+            navigation: {
+                nextEl: '.fleet-next',
+                prevEl: '.fleet-prev',
+            },
+            breakpoints: {
+                768: { slidesPerView: 1.5 },
+                1024: { slidesPerView: 2 }
+            },
+            on: {
+                slideChange: function () {
+                    const activeSlide = this.slides[this.activeIndex];
+                    if (activeSlide) {
+                        const bgUrl = activeSlide.getAttribute('data-bg');
+                        if (bgUrl) {
+                            fleetBg.style.opacity = 0;
+                            setTimeout(() => {
+                                fleetBg.style.backgroundImage = `url('${bgUrl}')`;
+                                fleetBg.style.opacity = 0.3;
+                            }, 300);
+                        }
+                    }
+                }
+            }
+        });
+
+        // 5. MARQUEE ANIMATION
+        // CSS Animation is used
+
+        // 6. STATS COUNTER
+        gsap.utils.toArray('.counter').forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            gsap.to(counter, {
+                innerText: target,
+                duration: 2,
+                snap: { innerText: 1 },
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: counter,
+                    start: "top 85%",
+                    once: true
+                },
+                onUpdate: function() {
+                    this.targets()[0].innerText = Math.ceil(this.targets()[0].innerText);
+                }
+            });
+        });
+    </script>
+    
+    <style>
+        @keyframes marquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+            will-change: transform;
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+        @media (max-width: 768px) {
+            .animate-marquee {
+                animation-duration: 10s;
+            }
+        }
+    </style>
+
+    <!-- TimeKairos CMS -->
+    <script src="https://cms.timekairos.com.ua/tk.js" data-site="test"></script>
+</body>
+</html>

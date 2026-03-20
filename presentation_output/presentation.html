@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELOCITY | Elite Car Rental & Detailing Presentation</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400&display=swap");
+        
+        body { margin: 0; padding: 0; overflow: hidden; font-family: "Syncopate", sans-serif; width: 100vw; height: 100vh; background-color: #1a1a1a; color: #fff; }
+        
+        /* --- BACKGROUND --- */
+        .bg-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('bg.png');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+        /* Cinematic Spotlight */
+        .spotlight {
+            display: none;
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150vw;
+            height: 150vh;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.08) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 2;
+            filter: blur(80px);
+        }
+
+        /* Noise Overlay for Dithering (Fixes Banding) */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0.03; /* Reduced opacity further */
+            /* Finer noise frequency */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            mix-blend-mode: overlay; /* Better blending */
+        }
+
+        /* --- DEVICES --- */
+        .devices-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            z-index: 20;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 3000px;
+        }
+
+        .devices-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .device {
+            position: absolute;
+            transition: all 0.5s ease;
+            will-change: transform;
+            image-rendering: -webkit-optimize-contrast; /* Ensure sharp rendering */
+        }
+
+        /* ZERO GRAVITY COMPOSITION */
+        
+        /* 1. The Monolith (MacBook) - Center Stage */
+        .desktop {
+            z-index: 10;
+            left: 50%;
+            top: 50%;
+            /* No rotation for maximum sharpness */
+            transform: translate(-50%, -50%) scale(1.1); 
+            width: 1200px;
+            /* Deep, soft shadow for floating effect */
+            filter: drop-shadow(0 100px 150px rgba(0,0,0,0.9));
+        }
+
+        /* 2. The Satellite (Tablet) - Floating Left & Behind */
+        .tablet {
+            z-index: 5; /* Behind laptop */
+            left: 15%;
+            top: 40%;
+            /* No rotation */
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 500px;
+            filter: drop-shadow(0 50px 100px rgba(0,0,0,0.8)) blur(0.5px); /* Slight blur for depth */
+            opacity: 0.9;
+        }
+
+        /* 3. The Companion (Phone) - Floating Right & Front */
+        .mobile {
+            z-index: 20; /* In front of laptop */
+            left: 82%;
+            top: 60%;
+            /* No rotation */
+            transform: translate(-50%, -50%) scale(1.1);
+            width: 280px;
+            filter: drop-shadow(-30px 50px 80px rgba(0,0,0,0.9));
+        }
+        
+        .project-label {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-layer"></div>
+    <div class="spotlight"></div>
+    <div class="noise"></div>
+    
+    <div class="devices-container">
+        <div class="devices-wrapper">
+            <img src="framed-desktop.png" class="device desktop">
+            <img src="framed-tablet.png" class="device tablet">
+            <img src="framed-mobile.png" class="device mobile">
+        </div>
+    </div>
+</body>
+</html>
+  
